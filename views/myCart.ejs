@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="keywords"
+        content="wrappixel, admin dashboard, html css dashboard, web dashboard, bootstrap 5 admin, bootstrap 5, css3 dashboard, bootstrap 5 dashboard, Matrix lite admin bootstrap 5 dashboard, frontend, responsive bootstrap 5 admin template, Matrix admin lite design, Matrix admin lite dashboard bootstrap 5 dashboard template" />
+    <meta name="description"
+        content="Matrix Admin Lite Free Version is powerful and clean admin dashboard template, inpired from Bootstrap Framework" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>Matrix Admin Lite Free Versions Template by WrapPixel</title>
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png" />
+    <!-- Custom CSS -->
+    <link href="../assets/libs/flot/css/float-chart.css" rel="stylesheet" />
+    <!-- Custom CSS -->
+    <link href="../dist/css/style.min.css" rel="stylesheet" />
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <![endif]-->
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        #main {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        #myCart {
+            border: 5px groove #000;
+            width: 32%;
+            margin: 10px 0.66%;
+            padding: 10px 12px;
+        }
+        /* #edit, #blogDelete{
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 18px;
+        } */
+        #title {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div id="main"></div>
+    </div>
+
+
+    <script>
+        let get = async () => {
+            let req = await fetch(`http://localhost:8000/myCart`);
+            // console.log(req);
+            let res = await req.json();
+            console.log(res.cart);
+            let a = res.cart;
+            let text = '';
+
+            a.map((ele,i) => {
+                text += `<div id="myCart">
+                <div id="tital" class="fs-1 fw-bold text-center text-success">${ele.tital}</div>
+                <div id="content" class="fs-3 px-3 py-1 overflow-auto text-info">${ele.content}</div>
+                <div id="auther" class="fs-4 fw-lighter text-end pe-5 text-primary">${ele.auther}</div>
+                <a href="/edit/${i}" id="edit"><span class="mdi mdi-pencil-box text-dark fs-1 rounded-circle"></span></a>
+                <a href="/deleteData/${i}" id="blogDelete"><span class="mdi mdi-close-box text-danger fs-1 rounded-circle fw-bold rounded-circle"></span></a>
+            </div>`;
+            
+            });
+
+            document.getElementById('main').innerHTML = text;
+
+        };
+        get();
+
+    </script>
+</body>
+
+</html>
