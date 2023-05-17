@@ -63,7 +63,12 @@ app.post('/blog',passport.authenticate('local',{failureRedirect : '/login' , suc
     res.render('blog');
 })
 app.get('/myBlog', async (req, res) => {
-    res.render('myCart');
+    if(req.user){
+        res.render('myCart');
+    }
+    else{
+        return res.redirect('/login');
+    }
 })
 app.get('/myCart', async (req, res) => {
     if(req.user){
@@ -89,6 +94,18 @@ app.post('/post', checkData, async (req, res) => {
 app.get('/user',(req,res) => {
     console.log(req.user);
     res.send('done');
+})
+app.get('/edit/:id', async (req,res) => {
+    let{id} = req.params;
+    let data = req.body;
+    await admin.findByIdAndUpdate(id, data);
+    res.sender('myCart');
+})
+
+app.get('/deleteData/:id', async (req,res) => {
+    let{id} = req.params;
+    await admin.findByIdAndRemove(id);
+    res.sender('myCart');
 })
 
 app.listen(8000, (req, res) => {
