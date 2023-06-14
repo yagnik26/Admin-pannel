@@ -98,14 +98,20 @@ app.get('/user',(req,res) => {
 app.get('/edit/:id', async (req,res) => {
     let{id} = req.params;
     let data = req.body;
-    await admin.findByIdAndUpdate(id, data);
-    res.sender('myCart');
+    try {
+        await admin.findByIdAndUpdate(id, data);
+    } catch (error) {
+        console.log(error);
+    }
 })
 
 app.get('/deleteData/:id', async (req,res) => {
     let{id} = req.params;
-    await admin.findByIdAndRemove(id);
-    res.sender('myCart');
+    try {
+        await admin.findByIdAndRemove(id);
+    } catch (error) {
+        console.log(error);
+    }
 })
 
 app.listen(8000, (req, res) => {
